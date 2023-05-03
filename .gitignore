@@ -158,3 +158,5 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+gocd/gocd-23.1.0-16079-2164
+agora/local/agola/data
