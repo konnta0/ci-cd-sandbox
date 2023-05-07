@@ -4,7 +4,7 @@ curl -fsSL 'https://www.gocd.org/test-drive-gocd/try.sh' | bash -s 'https://down
 ```
 
 ```sh
-cd  gocd-23.1.0-16079-2164
+cd gocd-23.1.0-16079-2164
 ./run-gocd
 ```
 
