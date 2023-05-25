@@ -1,4 +1,4 @@
-name: Manual Deploy
+name: use docker compose
 
 on:
   workflow_dispatch:
