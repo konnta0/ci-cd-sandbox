@@ -25,6 +25,8 @@ jobs:
       - name: Deploy (use environemt secrets)
         run: |
           echo "Deploy target server: ${{ secrets.ENV_SERVER }}"
+      - name: checkout
+        uses: actions/checkout@v2
       - name: compose up
         run: |
           sleep 10
