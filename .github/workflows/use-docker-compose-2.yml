@@ -1,4 +1,4 @@
-name: use docker compose
+name: use docker compose second
 
 on:
   workflow_dispatch:
