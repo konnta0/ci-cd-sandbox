@@ -45,6 +45,7 @@ jobs:
     steps:
       - name: Show inputs
         run: |
+          echo "environment: ${{ needs.parse-environment.outputs.environment }}"
           echo "message: ${{ github.event.inputs.message }}"
           echo "dryrun: ${{ github.event.inputs.dryrun }}"
       - name: Deploy (use environemt secrets)
