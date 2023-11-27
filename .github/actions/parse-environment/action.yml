@@ -20,9 +20,9 @@ runs:
     - id: set-env
       run: |
         if [[ "${{ inputs.ref }}" =~ ^refs/tags/(.*) ]]; then
-          echo "environment=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          echo "environment=${BASH_REMATCH[1]}" >> $GITHUB_OUTPUT
         elif [[ "${{ inputs.event_name }}" == "workflow_dispatch" ]]; then
-          echo "environment=${{ inputs.environment_input }}" >> $GITHUB_ENV
+          echo "environment=${{ inputs.environment_input }}" >> $GITHUB_OUTPUT
         else
           echo "::error::Invalid event"
           exit 1
