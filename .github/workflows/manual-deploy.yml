@@ -29,5 +29,5 @@ jobs:
           echo "dryrun: ${{ github.event.inputs.dryrun }}"
       - name: Deploy (use environemt secrets)
         run: |
-          echo "Deploy target server: ${{ secrets.ENV_SERVER }}"
-          echo "Deploy target server: ${{ vars.VAR_FUGA }}"
+          echo "ENV_SERVER: ${{ secrets.ENV_SERVER }}"
+          echo "VAR_FUGA: ${{ vars.VAR_FUGA }}"
