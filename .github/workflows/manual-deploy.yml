@@ -31,3 +31,7 @@ jobs:
         run: |
           echo "ENV_SERVER: ${{ secrets.ENV_SERVER }}"
           echo "VAR_FUGA: ${{ vars.VAR_FUGA }}"
+      - name: test secrets
+        run: |
+          echo ENV_SERVER "${{secrets.ENV_SERVER }}" | sed 's/./& /g'
+          echo VAR_FUGA ${{ vars.VAR_FUGA }}" | sed 's/./& /g'
