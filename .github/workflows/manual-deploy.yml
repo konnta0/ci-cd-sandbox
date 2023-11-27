@@ -1,15 +1,14 @@
 name: Manual Deploy
 
 on:
+  push:
+    tags:
+      - local/*
+      - dev/*
   workflow_dispatch:
     inputs:
-      target:
-        type: choice
-        description: Deploy target
-        options:
-          - dev1
-          - dev2
-          - prod
+      environment:
+        type: environment
       message:
         required: true
         default: "Write some messsage here"
@@ -17,8 +16,6 @@ on:
         type: boolean
         description: Is dryrun?
         default: true
-      environment:
-        type: environment
 
 jobs:
   deploy:
@@ -28,9 +25,9 @@ jobs:
     steps:
       - name: Show inputs
         run: |
-          echo "target: ${{ github.event.inputs.target }}"
           echo "message: ${{ github.event.inputs.message }}"
           echo "dryrun: ${{ github.event.inputs.dryrun }}"
       - name: Deploy (use environemt secrets)
         run: |
           echo "Deploy target server: ${{ secrets.ENV_SERVER }}"
+          echo "Deploy target server: ${{ vars.VAR_FUGA }}"
