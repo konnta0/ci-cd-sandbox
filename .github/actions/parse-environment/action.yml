@@ -17,12 +17,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          .github/actions/parse-environment
-
     - id: set-env
       run: |
         if [[ "${{ inputs.ref }}" =~ ^refs/tags/(.*)/.* ]]; then
