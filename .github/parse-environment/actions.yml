@@ -1,0 +1,31 @@
+# .github/actions/parse-environment/action.yml
+name: "Parse Environment"
+description: "Parse the environment from the tag name or workflow dispatch inputs"
+inputs:
+  ref:
+    description: "The git ref that triggered the workflow"
+    required: true
+  event_name:
+    description: "The name of the event that triggered the workflow"
+    required: true
+  environment_input:
+    description: "The environment input from the workflow dispatch event"
+    required: false
+outputs:
+  environment:
+    description: "The parsed environment"
+    value: ${{ steps.set-env.outputs.environment }}
+runs:
+  using: "composite"
+  steps:
+    - id: set-env
+      run: |
+        if [[ "${{ inputs.ref }}" =~ ^refs/tags/(.*) ]]; then
+          echo "::set-output name=environment::${BASH_REMATCH[1]}"
+        elif [[ "${{ inputs.event_name }}" == "workflow_dispatch" ]]; then
+          echo "::set-output name=environment::${{ inputs.environment_input }}"
+        else
+          echo "::error::Invalid event"
+          exit 1
+        fi
+      shell: bash

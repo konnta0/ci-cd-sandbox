@@ -18,9 +18,23 @@ on:
         default: true
 
 jobs:
-  deploy:
+  parse-environment:
     runs-on: ubuntu-latest
-    environment: ${{ github.event.inputs.environment }}
+    outputs:
+      environment: ${{ steps.parse-env.outputs.environment }}
+    steps:
+      - name: Parse environment
+        id: parse-env
+        uses: ./.github/actions/parse-environment
+        with:
+          ref: ${{ github.ref }}
+          event_name: ${{ github.event_name }}
+          environment_input: ${{ github.event.inputs.environment }}
+
+  deploy:
+    needs: parse-environment
+    runs-on: ubuntu-latest
+    environment: ${{ needs.parse-environment.outputs.environment }}
 
     steps:
       - name: Show inputs
@@ -34,4 +48,4 @@ jobs:
       - name: test secrets
         run: |
           echo ENV_SERVER "${{secrets.ENV_SERVER }}" | sed 's/./& /g'
-          echo VAR_FUGA ${{ vars.VAR_FUGA }}" | sed 's/./& /g'
+          echo VAR_FUGA "${{ vars.VAR_FUGA }}" | sed 's/./& /g'
