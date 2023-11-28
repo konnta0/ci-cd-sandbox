@@ -54,7 +54,7 @@ jobs:
         timeout-minutes: 60
 
   deploy:
-    needs: parse-environment
+    needs: [parse-environment, manual-approval]
     runs-on: ubuntu-latest
     environment: ${{ needs.parse-environment.outputs.environment }}
 
