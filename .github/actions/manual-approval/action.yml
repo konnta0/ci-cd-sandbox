@@ -43,4 +43,3 @@ runs:
         issue-title: ${{ inputs.issue-title }}
         issue-body: ${{ inputs.issue-body }}
         exclude-workflow-initiator-as-approver: false
-      shell: bash
