@@ -38,6 +38,8 @@ jobs:
           environment_input: ${{ github.event.inputs.environment }}
 
   manual-approval:
+    permissions:
+      issues: write
     uses: konnta0/ci-cd-sandbox/.github/workflows/manual-approval.yml@main
     needs: parse-environment
     with:
