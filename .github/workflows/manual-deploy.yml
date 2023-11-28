@@ -49,6 +49,11 @@ jobs:
         sparse-checkout: |
           .github/actions/manual-approval
 
+    - name: Manual approval
+      uses: ./.github/actions/manual-approval
+      with:
+        environment: ${{ needs.parse-environment.outputs.environment }}
+
   deploy:
     needs: [parse-environment, manual-approval]
     runs-on: ubuntu-latest
