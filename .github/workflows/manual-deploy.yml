@@ -37,17 +37,17 @@ jobs:
           event_name: ${{ github.event_name }}
           environment_input: ${{ github.event.inputs.environment }}
 
-  # manual-approval:
-  #   uses: .github/workflows/manual-approval.yml
-  #   needs: parse-environment
-  #   with:
-  #     environment: ${{ needs.parse-environment.outputs.environment }}
-  #     issue-title: "Manual approval"
-  #     issue-body: "Manual approval"
-  #     approvers: "konnta0"
-  #     minimum-approvals: "1"
-  #   secrets:
-  #     github-token: ${{ secrets.GITHUB_TOKEN }}
+  manual-approval:
+    uses: konnta0/ci-cd-sandbox/.github/workflows/manual-approval.yml@main
+    needs: parse-environment
+    with:
+      environment: ${{ needs.parse-environment.outputs.environment }}
+      issue-title: "Manual approval"
+      issue-body: "Manual approval"
+      approvers: "konnta0"
+      minimum-approvals: "1"
+    secrets:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     needs: [parse-environment, manual-approval]
