@@ -32,6 +32,8 @@ on:
 
 jobs:
   manual-approval:
+    permissions:
+      issues: write
     runs-on: ubuntu-latest
     steps:
       - name: Check Environment
