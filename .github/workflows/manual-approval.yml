@@ -1,0 +1,56 @@
+name: "Manual approval by Environment"
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: "The git ref that triggered the workflow"
+        required: true
+        type: string
+      issue-title:
+        description: "Approval issue title"
+        required: true
+        type: string
+        default: "Manual approval"
+      issue-body:
+        description: "Approval issue title"
+        required: true
+        type: string
+        default: "Manual approval"
+      approvers:
+        description: "approvars(github account)"
+        required: true
+        type: string
+        default: konnta0
+      minimum-approvals:
+        description: "default 1"
+        required: true
+        type: string
+        default: "1"
+    secrets:
+      github-token:
+        required: true
+
+jobs:
+  manual-approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Environment
+        id: check-env
+        run: |
+          if [[ ",${{ vars.MANUAL_APPROVAL_ENVIRONMENT }}," = *",${{ inputs.environment }},"* ]]; then
+            echo "is_valid_environment=true" >> $GITHUB_ENV
+          else
+            echo "is_valid_environment=false" >> $GITHUB_ENV
+          fi
+        shell: bash
+
+      - name: Manual approval
+        if: ${{ env.is_valid_environment == 'true' }}
+        uses: trstringer/manual-approval@v1
+        with:
+          secret: ${{ secrets.github-token }}
+          approvers: ${{ inputs.approvers }}
+          minimum-approvals: ${{ inputs.minimum-approvals }}
+          issue-title: ${{ inputs.issue-title }}
+          issue-body: ${{ inputs.issue-body }}
+          exclude-workflow-initiator-as-approver: false

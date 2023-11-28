@@ -38,21 +38,16 @@ jobs:
           environment_input: ${{ github.event.inputs.environment }}
 
   manual-approval:
+    uses: .github/workflows/manual-approval.yml
     needs: parse-environment
-    runs-on: ubuntu-latest
-    permissions:
-      issues: write
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          .github/actions/manual-approval
-
-    - name: Manual approval
-      uses: ./.github/actions/manual-approval
-      with:
-        environment: ${{ needs.parse-environment.outputs.environment }}
+    with:
+      environment: ${{ needs.parse-environment.outputs.environment }}
+      issue-title: "Manual approval"
+      issue-body: "Manual approval"
+      approvers: "konnta0"
+      minimum-approvals: "1"
+    secrets:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
 
   deploy:
     needs: [parse-environment, manual-approval]
