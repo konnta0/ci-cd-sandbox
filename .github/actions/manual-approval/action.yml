@@ -26,7 +26,7 @@ runs:
     - name: Check Environment
       id: check-env
       run: |
-        if [[ ",${MANUAL_APPROVAL_ENVIRONMENT}," = *",${{ inputs.environment }},"* ]]; then
+        if [[ ",${{ env.MANUAL_APPROVAL_ENVIRONMENT }}," = *",${{ inputs.environment }},"* ]]; then
           echo "is_valid_environment=true" >> $GITHUB_ENV
         else
           echo "is_valid_environment=false" >> $GITHUB_ENV
