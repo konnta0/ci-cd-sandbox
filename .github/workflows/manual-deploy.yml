@@ -37,6 +37,22 @@ jobs:
           event_name: ${{ github.event_name }}
           environment_input: ${{ github.event.inputs.environment }}
 
+  manual-approval:
+    needs: parse-environment
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+    - uses: trstringer/manual-approval@v1
+      with:
+        secret: ${{ github.TOKEN }}
+        approvers: konnta0
+        minimum-approvals: 1
+        issue-title: "Deploying approval"
+        issue-body: "Please approve or deny the deployment"
+        exclude-workflow-initiator-as-approver: false
+        timeout-minutes: 60
+
   deploy:
     needs: parse-environment
     runs-on: ubuntu-latest
